@@ -13,10 +13,7 @@
   /**
    * define an array of all roman numerals
    * aNumerals = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
-   * define an array of main roman numerals
-   * mNumerals = ['I', 'X', 'C', 'M'];
-   * define an array of secondary roman numerals
-   * sNumerals = ['V', 'L', 'D'];
+   * define an object map between roman numerals and their corresponding numeric values
    * 
    * ====== convertToRoman algorithm ======
    * Let's take a big number as an example -> 3999. We can write this
@@ -66,7 +63,6 @@
     return finalResult;
   }
 
-  // get digits out of number
   function getDigits(num) {
     return ('' + num).match(/[0-9]/g).map(function (d) {
       return parseInt(d, 10);
