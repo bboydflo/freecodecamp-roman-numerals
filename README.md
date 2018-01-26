@@ -1,4 +1,4 @@
-# freeCodeCamp [roman numerals challenge](http://google.com)
+# freeCodeCamp [roman numerals challenge](https://www.freecodecamp.org/challenges/roman-numeral-converter)
 
 ### Install dependencies
 
@@ -12,7 +12,7 @@ npm install
 npm start
 ```
 
-After making changes it's a good idea to run Eslint task
+After making changes it's a good idea to run the lint task
 
 ```sh
 npm run lint
