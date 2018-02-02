@@ -1,9 +1,11 @@
+declare var process;
+
 (function () {
 
   // clear console
   function clearConsole() {
-    var lines = process.stdout.getWindowSize()[1];
-    for (var i = 0; i < lines; i++) {
+    const lines: number = process.stdout.getWindowSize()[1];
+    for (let i: number = 0; i<lines; i++) {
       console.log('\r\n');
     }
   }
@@ -35,8 +37,8 @@
    * 3999 = fixMainNumeral(3, M) + fixMainNumeral(9, C) + fixMainNumeral(9, X) + fixMainNumeral(9, I)
    */
 
-  var aNumerals = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
-  var numbersMap = {
+  const aNumerals: String[] = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
+  const numbersMap = {
     1: 'I',
     5: 'V',
     10: 'X',
@@ -46,16 +48,16 @@
     1000: 'M'
   };
 
-  function convertToRoman(num) {
+  function convertToRoman(num: string): string {
 
     // get number's digits
-    var digits = getDigits(num);
-    var digitsLen = digits.length;
+    const digits: number[] = getDigits(num);
+    const digitsLen: number = digits.length;
 
-    var i, cRomNum;
-    var finalResult = '';
+    let i: number, cRomNum: string;
+    let finalResult = '';
 
-    for (i = 0; i < digitsLen; i++) {
+    for (i=0; i<digitsLen; i++) {
       cRomNum = numbersMap[Math.pow(10, digitsLen - 1 - i)];
       finalResult = finalResult + fixMainNumeral(digits[i], cRomNum);
     }
@@ -63,24 +65,24 @@
     return finalResult;
   }
 
-  function getDigits(num) {
+  function getDigits(num: string): number[] {
     return ('' + num).match(/[0-9]/g).map(function (d) {
       return parseInt(d, 10);
     });
   }
 
-  function createSequence(char, times) {
-    var seq = '';
-    for (var i = 0; i < times; i++) {
+  function createSequence(char, times): string {
+    let seq: string = '';
+    for (var i: number = 0; i<times; i++) {
       seq = seq + char;
     }
     return seq;
   }
 
-  function fixMainNumeral(n, numeral) {
+  function fixMainNumeral(n: number, numeral: string): string {
 
     // get numeral position
-    var pos = aNumerals.indexOf(numeral);
+    let pos: number = aNumerals.indexOf(numeral);
 
     if (n < 5) {
       if (n < 4) {
@@ -114,7 +116,7 @@
     }
   }
 
-  var valuesToTest = {
+  const valuesToTest = {
     2: 'II',
     3: 'III',
     4: 'IV',
@@ -144,7 +146,7 @@
     5293: 'MMMMMCCXCIII'
   };
 
-  var val, res, testRes;
+  var val: string, res: string, testRes: string;
 
   // loop through each key in valuesToTest
   for (val in valuesToTest) {
