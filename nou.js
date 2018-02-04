@@ -1,13 +1,10 @@
-var process;
 (function () {
-    // clear console
-    function clearConsole() {
+    (function clearConsole() {
         var lines = process.stdout.getWindowSize()[1];
         for (var i = 0; i < lines; i++) {
             console.log('\r\n');
         }
-    }
-    clearConsole();
+    })();
     /**
      * define an array of all roman numerals
      * aNumerals = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
@@ -39,21 +36,25 @@ var process;
         10: 'X',
         50: 'L',
         100: 'C',
-        500: 'D',
-        1000: 'M'
+        500: 'D'
     };
     function convertToRoman(num) {
+        var finalResult = '';
+        if (num > 1000) {
+            finalResult = createSequence('M', Math.floor(num / 1000));
+            num = num % 1000;
+        }
         // get number's digits
-        var digits = getDigits(num);
+        var digits = getDigits(num); // [2,3,4] CC XXX IIIII
         var digitsLen = digits.length;
         var i, cRomNum;
-        var finalResult = '';
         for (i = 0; i < digitsLen; i++) {
             cRomNum = numbersMap[Math.pow(10, digitsLen - 1 - i)];
-            finalResult = finalResult + fixMainNumeral(digits[i], cRomNum);
+            finalResult = finalResult + fixNumeral(digits[i], cRomNum);
         }
         return finalResult;
     }
+    ;
     function getDigits(num) {
         return ('' + num).match(/[0-9]/g).map(function (d) {
             return parseInt(d, 10);
@@ -61,40 +62,28 @@ var process;
     }
     function createSequence(char, times) {
         var seq = '';
-        for (var i = 0; i < times; i++) {
+        var i = 0;
+        for (i = 0; i < times; i++) {
             seq = seq + char;
         }
         return seq;
     }
-    function fixMainNumeral(n, numeral) {
-        // get numeral position
+    function fixNumeral(n, numeral) {
         var pos = aNumerals.indexOf(numeral);
-        if (n < 5) {
-            if (n < 4) {
-                return createSequence(numeral, n);
-            }
-            // check if there is a next numeral
-            if (pos + 1 >= aNumerals.length) {
-                return createSequence(numeral, n);
-            }
-            return numeral + aNumerals[pos + 1];
-        }
-        if (n == 5) {
-            if (pos < aNumerals.length - 1) {
-                return aNumerals[pos + 1];
-            }
+        if (n < 4) {
             return createSequence(numeral, n);
         }
-        if (n > 5) {
-            if (n < 9) {
-                return aNumerals[pos + 1] + createSequence(numeral, n - 5);
-            }
-            // check if there is a next numeral
-            if (pos + 2 >= aNumerals.length) {
-                return createSequence(numeral, n);
-            }
-            return numeral + aNumerals[pos + 2];
+        if (n === 4) {
+            return numeral + aNumerals[pos + 1];
         }
+        if (n === 5) {
+            return aNumerals[pos + 1];
+        }
+        if (n < 9) {
+            return aNumerals[pos + 1] + createSequence(numeral, n - 5);
+        }
+        // 9
+        return numeral + aNumerals[pos + 2];
     }
     var valuesToTest = {
         2: 'II',
@@ -123,19 +112,17 @@ var process;
         2014: 'MMXIV',
         3999: 'MMMCMXCIX',
         4235: 'MMMMCCXXXV',
-        5293: 'MMMMMCCXCIII'
+        5293: 'MMMMMCCXCIII',
+        12000: 'MMMMMMMMMMMM',
+        7457: 'MMMMMMMCDLVII'
     };
     var val, res, testRes;
     // loop through each key in valuesToTest
     for (val in valuesToTest) {
-        // var res = convertToRomanNumeral(val);
-        // res = convert(val);
+        testRes = 'FAIL';
         res = convertToRoman(val);
         if (res === valuesToTest[val]) {
             testRes = 'PASS';
-        }
-        else {
-            testRes = 'FAIL';
         }
         console.log(val + ' = ' + res + ' -> ' + testRes);
     }
