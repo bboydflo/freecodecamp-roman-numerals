@@ -1,4 +1,4 @@
-declare var process;
+var process;
 
 (function () {
 
@@ -37,7 +37,7 @@ declare var process;
    * 3999 = fixMainNumeral(3, M) + fixMainNumeral(9, C) + fixMainNumeral(9, X) + fixMainNumeral(9, I)
    */
 
-  const aNumerals: String[] = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
+  const aNumerals: string[] = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
   const numbersMap = {
     1: 'I',
     5: 'V',
@@ -153,7 +153,7 @@ declare var process;
     // var res = convertToRomanNumeral(val);
     // res = convert(val);
     res = convertToRoman(val);
-    if (res == valuesToTest[val]) {
+    if (res === valuesToTest[val]) {
       testRes = 'PASS'
     } else {
       testRes = 'FAIL'
