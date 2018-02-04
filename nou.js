@@ -40,7 +40,7 @@
     };
     function convertToRoman(num) {
         var finalResult = '';
-        if (num > 1000) {
+        if (num >= 1000) {
             finalResult = createSequence('M', Math.floor(num / 1000));
             num = num % 1000;
         }
@@ -120,7 +120,7 @@
     // loop through each key in valuesToTest
     for (val in valuesToTest) {
         testRes = 'FAIL';
-        res = convertToRoman(val);
+        res = convertToRoman(parseInt(val, 10));
         if (res === valuesToTest[val]) {
             testRes = 'PASS';
         }
